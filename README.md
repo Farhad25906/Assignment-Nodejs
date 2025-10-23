@@ -77,8 +77,8 @@ library-management-assignment-03/
 ├── package.json                  # Project dependencies and scripts
 ├── tsconfig.json                 # TypeScript configuration
 └── README.md                     # Project documentation
-
 ```
+
 ## ⚙️ Installation & Setup
 
 ### 1️⃣ Clone the repository
