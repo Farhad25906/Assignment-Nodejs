@@ -120,7 +120,7 @@ const deleteBook = async (req: Request, res: Response) => {
     res.send({
       success: false,
       message: "Book couldn't Find",
-      error,
+      data : null
     });
   }
 };
