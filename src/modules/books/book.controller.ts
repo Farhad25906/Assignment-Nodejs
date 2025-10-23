@@ -77,6 +77,13 @@ const updateBook = async (req: Request, res: Response) => {
       runValidators: true,
     });
 
+    if (!data) {
+      return res.status(404).send({
+        success: false,
+        message: "Book not found",
+      });
+    }
+
     res.send({
       success: true,
       message: "Book updated successfully",
@@ -94,6 +101,14 @@ const updateBook = async (req: Request, res: Response) => {
 const deleteBook = async (req: Request, res: Response) => {
   try {
     const id = req.params.bookId;
+    const book = await Book.findById(id);
+    
+    if (!book) {
+      return res.status(404).send({
+        success: false,
+        message: "Book not found",
+      });
+    }
     const data = await Book.findByIdAndDelete(id);
 
     res.send({
