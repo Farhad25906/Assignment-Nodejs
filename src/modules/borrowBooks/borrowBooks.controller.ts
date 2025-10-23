@@ -7,7 +7,6 @@ import { BookBorrow } from "./borrowBooks.model";
 const CreateBorrowBook = async (req: Request, res: Response) => {
   try {
     const { book: bookId, quantity, dueDate } = req.body;
-    console.log("Borrow request:", { bookId, quantity, dueDate });
 
     // Validate required fields
     if (!bookId || !quantity || !dueDate) {
@@ -19,7 +18,6 @@ const CreateBorrowBook = async (req: Request, res: Response) => {
 
     // 1. Verify the book exists and has enough copies
     const book = await Book.findById(bookId);
-    console.log("Found book:", book);
     
     if (!book) {
       return res.status(404).json({
@@ -47,11 +45,9 @@ const CreateBorrowBook = async (req: Request, res: Response) => {
     // 4. Deduct the quantity from the book's copies
     book.copies -= quantity;
     await book.save();
-    console.log("Updated book copies:", book.copies);
 
     // 5. Update availability status using static method
     const updatedBook = await Book.updateAvailability(bookId);
-    console.log("After updateAvailability:", updatedBook?.available);
 
     // 6. Create the borrow record
     const borrowRecord = await BookBorrow.create({
